@@ -1,0 +1,45 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+<!-- Library Scripts -->
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="lib/angular/angular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.1/angular-resource.js"></script>
+<!-- Application Script -->
+<script src="lib/app/app.js"></script>
+<!-- Product Controllers -->
+<script src="lib/app/products/productListCtrl.js"></script>
+<!-- Services -->
+<script src="lib/app/common/comman.Services.js"></script>
+<script src="lib/app/common/ProductResource.js"></script>
+<br>
+<br>
+<div class="panel panel-primary"
+     ng-controller="ProductListCtrl as vm">
+    <div class="panel-heading"
+         style="font-size: large">
+        Product List
+    </div>
+
+    <div class="panel-body">
+        <table class="table table-bordered">
+
+            <thead >
+            <tr class="success">
+                <td>Product</td>
+                <td>Code</td>
+                <td>Available</td>
+                <td>Price</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="product in vm.products">
+                <td>{{ product.productName}}</td>
+                <td>{{ product.productCode }}</td>
+                <td>{{ product.releaseDate | date }}</td>
+                <td>{{ product.price | currency }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
