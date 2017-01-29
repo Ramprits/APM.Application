@@ -8,7 +8,6 @@
 
     function ProductListCtrl(productResource) {
         var vm = this;
-
         productResource.query({
                 $filter: "contains(ProductCode, 'GDN') and Price ge 5 and Price le 20",
                 $orderby: "Price desc"},

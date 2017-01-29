@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using APM.Application.Data;
+using APM.Application.Data.Migrations;
 using APM.Application.Models;
 using Microsoft.AspNetCore.Mvc;
+using Remotion.Linq.Parsing;
 
 namespace APM.Application.Controllers
 {
@@ -19,7 +22,7 @@ namespace APM.Application.Controllers
         public IActionResult Index()
         {
             List<Product> list = new List<Product>();
-            foreach (var product in _context.Products)
+            foreach (Product product in _context.Products)
                 list.Add(product);
             return View(list);
         }
@@ -27,7 +30,26 @@ namespace APM.Application.Controllers
         [HttpGet()]
         public IActionResult GetProducts()
         {
-            return Ok(_context.Products.ToList());
+            try
+            {
+                return Ok(_context.Products.ToList());
+            }
+            catch (Exception)
+            {
+            }
+            return Ok();
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetProducts(int id)
+        {
+            var product = _context.Products.FirstOrDefault(p => p.ProductId == id);
+            return Ok(product);
+        }
+
+        public IActionResult Create([FromBody] Product product)
+        {
+            return Ok();
         }
     }
 }
